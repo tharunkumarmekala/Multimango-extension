@@ -1,0 +1,28 @@
+{
+  "manifest_version": 3,
+  "name": "MultiMango Productivity Tracker",
+  "version": "1.1",
+  "description": "Tracks active time and completed tasks on multimango.com/tasks.",
+  "permissions": [
+    "storage",
+    "alarms",
+    "tabs"
+  ],
+  "host_permissions": [
+    "https://www.multimango.com/tasks"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://www.multimango.com/tasks"],
+      "js": [
+        "content.js"
+      ]
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html"
+  }
+}
