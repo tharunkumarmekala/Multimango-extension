@@ -2,6 +2,10 @@
 
 Multimango is a browser extension that monitors time spent on specific websites and tracks task completion. Perfect for personal productivity, study sessions, or workflow accountability — all running locally in your browser.
 
+> ⚠️ **Note**: This extension is custom designed for my work — specifically for tracking working hours on a designated site instead of manually counting them.  
+> 🛑 There is no official Multimango extension for task tracking on the multimango.com site.  
+> ✅ You can use this extension for any website by updating the fields in the `manifest.json`.
+
 ## 📌 Core Features
 
 - ⏳ **Site-Specific Timer**: Automatically starts a timer when visiting monitored sites.
@@ -36,11 +40,50 @@ Multimango is a browser extension that monitors time spent on specific websites 
 4. Click **Load unpacked** and select the folder containing the extension files.
 5. Visit a monitored site and click the extension icon to view the timer and task tracker.
 
-## 🧪 Customization
+## 🧪 Customization: Add Your Own Site
 
-- To change which sites are monitored, update the URL matching logic in `background.js`.
-- To modify task detection (e.g., different submit buttons), adjust selectors in `content.js`.
-- You can extend the popup to show historical data or integrate with local storage.
+To monitor a different site (e.g., your own dashboard or task board), update the following fields in `manifest.json`:
+
+### 1. `host_permissions`
+
+This grants access to your target site:
+
+```json
+"host_permissions": [
+  "https://yourcustomsite.com/*"
+]
+```
+
+### 2. `content_scripts.matches`
+
+This ensures your content script runs only on the desired pages:
+
+```json
+"content_scripts": [
+  {
+    "matches": ["https://yourcustomsite.com/*"],
+    "js": ["content.js"]
+  }
+]
+```
+
+> You can add multiple URLs or use more specific paths like `https://yourcustomsite.com/dashboard`.
+
+### Example
+
+To track time and tasks on `https://mytasks.io/dashboard`, use:
+
+```json
+"host_permissions": [
+  "https://mytasks.io/*"
+],
+"content_scripts": [
+  {
+    "matches": ["https://mytasks.io/dashboard"],
+    "js": ["content.js"]
+  }
+]
+```
 
 ## 📚 Use Cases
 
